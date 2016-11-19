@@ -4,7 +4,7 @@ Demonstration of Google's Cloud Vision APIs, consisting of a "googly eyes" gener
 
 Josef Stalin is a friendlier person when wearing Googly Eyes:
 
-![Stalin with Googly Eyes](http://stev-o.us/stalin-googly-eyes.png)
+![Stalin with Googly Eyes](http://stev-o.us/stalin-googly.png)
 
 ## Before you begin
 
