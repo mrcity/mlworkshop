@@ -25,7 +25,7 @@ Be sure you have followed the setup steps in the main README in the root directo
 * Click on "Service account key".
 * I created a new Service Account called "test" that had a limited number of roles selected (which ones?  TBD, one or more from the "Project" category).  Add sufficient roles by clicking on them to show a checkmark by them.  They will also appear below the word "Selected".
 * Select the "JSON" key type (should already be selected).
-* Click "Create".  When you do, it will prompt you to make sure you put the JSON file in a safe place, because it will not make the same one twice.  You need to put this JSON file wherever you will be using a library to access Cloud APIs.
+* Click "Create".  When you do, it will prompt you to make sure you put the JSON file in a safe place, because it will not make the same one twice.  Put the JSON credential file in mlworkshop/google-apis/keys (../keys from here).
 
 ### Seed your Google Cloud Storage with some images to make your own Googly Eyes
 
@@ -34,8 +34,4 @@ Be sure you have followed the setup steps in the main README in the root directo
 * Click on the bucket to go inside it.
 * Download some images containing human faces.
 * Click "Upload Files" and select the images you just downloaded.
-* Download the Googly Eyes code from this repo (coming soon).
-* Modify the googly-eyes-ajax.html file and index.html file to replace "machine-learning-149606.appspot.com" with your own bucket name, and people.jpg with the name of one of your images.  These names show up in several places (shameful, I know), so search carefully.
-* In app.js, change where it says require('./MachineLearning-dea72ee95678.json') to point to your own JSON cert you created earlier.
-* Run `npm install` and `bower install` from the command line to download the dependencies you need to run particularly the Express server, the Google API Client, Polymer, and its Web components.
-
+* Modify the dist/googly-eyes-helpers/googly-eyes-helpers.html file to replace "name-of-your-bucket" with your own bucket name, and "a-file-with-faces.jpg" with the name of one of your images.
