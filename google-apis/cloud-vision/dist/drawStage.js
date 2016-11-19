@@ -76,7 +76,7 @@ function drawStage(respObj)
 
                     // Draw the eyes
                     var googlyEyes = new Image();
-                    googlyEyes.src = "https://static1.fjcdn.com/comments/Here+is+a+googly+eye+png+make+me+proud+people+_0a191ef5ef16fdd0d08483fbfa9419bd.png";
+                    googlyEyes.src = "googly-eyes.png";
                     googlyEyes.eyeSize = eyeSize;
                     googlyEyes.eyePos = leftEyePos;
                     googlyEyes.eyeAngle = leftEyeAngle;
@@ -84,7 +84,7 @@ function drawStage(respObj)
                     googlyEyes.onload = myImageOnLoad;
 
                     googlyEyes = new Image();
-                    googlyEyes.src = "https://static1.fjcdn.com/comments/Here+is+a+googly+eye+png+make+me+proud+people+_0a191ef5ef16fdd0d08483fbfa9419bd.png";
+                    googlyEyes.src = "googly-eyes.png";
                     googlyEyes.eyeSize = eyeSize;
                     googlyEyes.eyePos = rightEyePos;
                     googlyEyes.eyeAngle = rightEyeAngle;
