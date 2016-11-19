@@ -1,5 +1,10 @@
 # cloud-vision
+
 Demonstration of Google's Cloud Vision APIs, consisting of a "googly eyes" generator implemented with Node.js and Polymer.
+
+Josef Stalin is a friendlier person when wearing Googly Eyes:
+
+![Stalin with Googly Eyes](http://stev-o.us/stalin-googly-eyes.png)
 
 ## Before you begin
 
