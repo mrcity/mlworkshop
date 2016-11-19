@@ -1,0 +1,24 @@
+{
+  "name": "cloud-vision",
+  "homepage": "https://github.com/mrcity/mlworkshop",
+  "description": "Demonstration of the Cloud Vision API.  Uses the facial detection feature to overlay googly eyes onto an image stored in a Google Cloud Storage bucket.",
+  "main": "",
+  "authors": [
+    "Stephen Wylie"
+  ],
+  "license": "LGPLv3",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
+    "paper-button": "PolymerElements/paper-button#^1.0.14",
+    "paper-input": "PolymerElements/paper-input#^1.1.22",
+    "polymer": "^1.7.0"
+  }
+}

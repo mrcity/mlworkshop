@@ -1,0 +1,57 @@
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="googly-eyes-helpers">
+    <template>
+        <paper-input label="Bucket name" value="{{paramObject.gcsBucket}}"></paper-input>
+        <paper-input label="File name" value="{{paramObject.gcsFileName}}"></paper-input>
+
+        <paper-button raised id="button" on-tap="toggleGooglyEyes">Hit to toggle and randomize googly eyes</paper-button>
+        <iron-ajax
+                id="ajax"
+                url="http://localhost:3000/api/googlyEyes"
+                params='{{paramObject}}'
+                handle-as="json"
+                on-response="handleResponse"
+                debounce-duration="300"></iron-ajax>
+    </template>
+    <script>
+        Polymer({
+            is: "googly-eyes-helpers",
+            properties: {
+                paramObject: {
+                    type: Object,
+                    value: function() {
+                        return {
+                            "gcsBucket": "name-of-your-bucket",
+                            "gcsFileName": "a-file-with-faces.jpg"
+                        };
+                    }
+                }
+            },
+            observers: [
+                'updateAjaxParams(paramObject.gcsBucket, paramObject.gcsFileName)'
+            ],
+            toggleGooglyEyes: function() {
+                drawEyes = !drawEyes;
+                console.log(drawEyes);
+
+                if (drawEyes) {
+                    this.$.ajax.generateRequest();
+                } else {
+                    drawStage();
+                }
+            },
+            updateAjaxParams: function(bucket, fileName) {
+                imageSrc = "https://storage.googleapis.com/" + bucket + "/" + fileName;
+            },
+            handleResponse: function(data) {
+                drawStage(data.detail.response);
+            },
+            ready: function() {
+                imageSrc = "https://storage.googleapis.com/" + this.get("paramObject.gcsBucket") + "/" + this.get("paramObject.gcsFileName");
+            }
+        });
+    </script>
+</dom-module>

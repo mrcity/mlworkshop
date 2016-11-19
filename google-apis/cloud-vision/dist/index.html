@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title>Googly Eyes With Google Cloud Vision</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+        <link rel="import" href="/bower_components/polymer/polymer.html">
+        <link rel="import" href="googly-eyes-helpers/googly-eyes-helpers.html">
+        <script src="drawStage.js"></script>
+
+<!-- *********************
+     *    STYLESHEET     *
+     ********************* -->
+
+        <style is="custom-style">
+            canvas {
+                float: left;
+                margin: 20px;
+            }
+            body {
+                font-size: 1.1em;
+                font-weight: 300;
+                font-family: source-sans-pro;
+                line-height: 1.8;
+                color: #404040;
+                max-width: 35rem;
+            }
+            #measure {
+                position: absolute;
+                left: -10000px;
+                top: -100000px;
+            }
+        </style>
+    </head>
+
+<!-- *********************
+     *    HTML LAYOUT    *
+     ********************* -->
+
+    <body height="100%">
+        <googly-eyes-helpers></googly-eyes-helpers>
+        <canvas id="leCanvas" width="294" height="398"></canvas>
+
+        <div id="measure"></div>
+
+<!-- *********************
+     * APPLICATION LOGIC *
+     ********************* -->
+
+        <script type="application/javascript">
+
+            var drawEyes = false;
+            var eyeScale = 2.0;
+            var canvas = document.getElementById("leCanvas");
+            var context = canvas.getContext("2d");
+            var imageSrc = "https://storage.googleapis.com/machine-learning-149606.appspot.com/people.jpg";
+            drawStage();
+
+        </script>
+    </body>
+</html>
