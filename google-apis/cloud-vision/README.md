@@ -39,4 +39,5 @@ Be sure you have followed the setup steps in the main README in the root directo
 * Click on the bucket to go inside it.
 * Download some images containing human faces.
 * Click "Upload Files" and select the images you just downloaded.
+* When the upload is complete, select the corresponding checkbox in the "Share publicly" column.  This will check the box and write "Public link" in that column, signifying permission to use the image in your app.
 * Modify the dist/googly-eyes-helpers/googly-eyes-helpers.html file to replace "name-of-your-bucket" with your own bucket name, and "a-file-with-faces.jpg" with the name of one of your images.
