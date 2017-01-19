@@ -12,6 +12,7 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 flags.DEFINE_string('train_dir', 'data', 'Directory to put the training data.')
 flags.DEFINE_string('checkpoint_dir', '.', 'Directory to put the checkpoints.')
+flags.DEFINE_string('index', '0', 'Image to use from among MNIST sample data.')
 
 NUM_CLASSES = 10
 IMAGE_PIXELS = 28 * 28
@@ -22,10 +23,13 @@ batch_size = 1
 images = tf.placeholder(tf.float32, shape=(batch_size, IMAGE_PIXELS))
 labels = tf.placeholder(tf.float32, shape=(batch_size))
 
+# IMPORTANT: This is where you initialize the graph in the same manner it was
+# made when running training.  For the MNIST example, this code can be (and in
+# fact was) copied straight out of the inference() function in mnist.py.
 with tf.name_scope('hidden1'):
     weights = tf.Variable(
         tf.truncated_normal([IMAGE_PIXELS, hidden1_units],
-        stddev=1.0 / math.sqrt(float(IMAGE_PIXELS))),
+            stddev=1.0 / math.sqrt(float(IMAGE_PIXELS))),
         name='weights')
     biases = tf.Variable(tf.zeros([hidden1_units]),
         name='biases')
@@ -35,7 +39,7 @@ with tf.name_scope('hidden1'):
 with tf.name_scope('hidden2'):
     weights = tf.Variable(
         tf.truncated_normal([hidden1_units, hidden2_units],
-        stddev=1.0 / math.sqrt(float(hidden1_units))),
+            stddev=1.0 / math.sqrt(float(hidden1_units))),
         name='weights')
     biases = tf.Variable(tf.zeros([hidden2_units]),
         name='biases')
@@ -45,7 +49,7 @@ with tf.name_scope('hidden2'):
 with tf.name_scope('softmax_linear'):
     weights = tf.Variable(
         tf.truncated_normal([hidden2_units, NUM_CLASSES],
-        stddev=1.0 / math.sqrt(float(hidden2_units))),
+            stddev=1.0 / math.sqrt(float(hidden2_units))),
         name='weights')
     biases = tf.Variable(tf.zeros([NUM_CLASSES]),
         name='biases')
@@ -66,16 +70,15 @@ with tf.Session() as sess:
 
     # Now you can run the model to get predictions
     batch_x = input_data.read_data_sets(FLAGS.train_dir, False)
-    batch_x = batch_x.train._images[0]
-    pprint.pprint(batch_x)
-    for i in range(0, 783):
+    batch_x = batch_x.train._images[FLAGS.index]
+    for i in range(0, 784):
+        if (i % 28 == 0):
+            print ""
         if (batch_x[i] > 0.5):
             print "1",
         else:
             print "0",
-    if (i % 28 == 0):
-        print ""
-    print "==="
-    print logits
+    print "\n==="
     predictions = sess.run(logits, feed_dict={images: [batch_x]})
     pprint.pprint(predictions)
+    print "The algorithm guessed this is a", numpy.argmax(predictions[0], 0)
