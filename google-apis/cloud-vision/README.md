@@ -8,7 +8,7 @@ Josef Stalin is a friendlier person when wearing Googly Eyes:
 
 ## Before you begin
 
-Be sure you have followed the setup steps in the main README in the root directory of this repository so you can get set up with the Google Cloud Platform in general.
+Be sure you have followed the setup steps in the README file in the google-apis directory so you can get set up with the Google Cloud Platform in general.
 
 ## Setting up for the Cloud Vision API demo
 
