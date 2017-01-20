@@ -1,0 +1,137 @@
+<html>
+<head>
+<title>Predict an Auto Loan Approval</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+<style type="text/css">
+#decision {
+	position: absolute;
+	top: -100px;
+	left: 400px;
+	height: 1em;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: 10em;
+}
+.yes {
+	color: #3C3;
+}
+.no {
+	color: #C03;
+}
+.problem {
+	color: #CC3;
+}
+</style>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+	var ids = ["salary", "commission", "age", "gender", "marital", "elevel", "car", "zipcode", "creditscore", "hvalue", "hyears", "loan"];
+
+	function parse_example(element) {
+		var rawdata = element.value.replace(/\"/g, "").split(",");
+		for (p in rawdata) {
+			$("#" + ids[p]).val(rawdata[p]);
+		}
+	}
+
+	function score_loan() {
+		var opts = {
+			method: 'GET',
+			headers: {}
+		};
+		var attributes = [];
+		for (var i in ids) {
+			attributes.push(ids[i] + "=" + $("#" + ids[i]).val());
+		}
+		fetch('/classify?' + attributes.join("&"), opts).then(function (response) {
+		  return response.json();
+		})
+		.then(function (body) {
+			if (body.outputLabel == "yes") {
+				$('#decision').text("Approved!");
+				testAnim("yes tada");
+			} else if (body.outputLabel == "no") {
+				$('#decision').text("Not approved");
+				testAnim("no hinge");
+			} else {
+				$('#decision').text("There was a problem");
+				testAnim("problem shake");
+			}
+		});
+	}
+	
+	// Animation effects from https://daneden.github.io/animate.css/
+    function testAnim(x) {
+      $('#decision').removeClass();
+	  $('#decision').addClass('shown animated ' + x).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+        $(this).removeClass().text('');
+      });
+    };
+</script>
+</head>
+<body>
+	<h1>Predict an Auto Loan Approval</h1>
+	<p>Enter the attributes of the example all at once in the box below, or individually in the attribute-specific fields.</p>
+	<p><input name="whole_example" id="whole_example" onchange="parse_example(this)" /></p>
+	<p>
+		<table>
+			<tr>
+				<td>Salary</td>
+				<td><input name="salary" id="salary" /></td>
+			</tr><tr>
+			<tr>
+				<td>Commission</td>
+				<td><input name="commission" id="commission" /></td>
+			</tr><tr>
+			<tr>
+				<td>Age</td>
+				<td><input name="age" id="age" /></td>
+			</tr><tr>
+			<tr>
+				<td>Gender</td>
+				<td><input name="gender" id="gender" /></td>
+				<td>f = female, m = male</td>
+			</tr><tr>
+			<tr>
+				<td>Marital status</td>
+				<td><input name="marital" id="marital" /></td>
+				<td>s = single, m = married no kids, d = divorced/widowed no kids, k = any marital status with kids</td>
+			</tr><tr>
+			<tr>
+				<td>Education level</td>
+				<td><input name="elevel" id="elevel" /></td>
+				<td>0 = no high school diploma, 1 = high school graduate, 2 = some college, 3 = college graduate, 4 = advanced degree</td>
+			</tr><tr>
+			<tr>
+				<td>Car make</td>
+				<td><input name="car" id="car" /></td>
+				<td>Value from 1-20 representing make of car</td>
+			</tr><tr>
+			<tr>
+				<td>Zip code</td>
+				<td><input name="zipcode" id="zipcode" /></td>
+				<td>value from 0-9 representing zip code</td>
+			</tr><tr>
+			<tr>
+				<td>Credit score</td>
+				<td><input name="creditscore" id="creditscore" /></td>
+			</tr><tr>
+			<tr>
+				<td>Home value</td>
+				<td><input name="hvalue" id="hvalue" /></td>
+			</tr><tr>
+			<tr>
+				<td>Years house owned</td>
+				<td><input name="hyears" id="hyears" /></td>
+			</tr><tr>
+			<tr>
+				<td>Loan amount requested</td>
+				<td><input name="loan" id="loan" /></td>
+			</tr>
+		</table>
+	</p>
+	<p><input type="button" name="go" id="go" onClick="score_loan()" value="Go!" /></p>
+	<span><p id="decision"></p></span>
+</body>
+</html>
