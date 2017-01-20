@@ -14,4 +14,6 @@ I had the best luck with the Docker development instance.  If you already have D
 
 `docker run -it b.gcr.io/tensorflow/tensorflow:latest-devel`
 
+(Note: this Docker URL seems to have changed if you read the link above...)
+
 If you run latest rather than latest-devel, you might encounter a situation where you never get access to the terminal console for your Docker instance.  Very frustrating.

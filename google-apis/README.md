@@ -27,3 +27,7 @@ These are the general prerequisites you need to follow in order to get started w
 ### Setting up for the Cloud Vision API demo
 
 Follow the instructions in the google-apis/cloud-vision README file.
+
+### Setting up for the Prediction API demo
+
+Follow the instructions in the google-apis/prediction README file.
