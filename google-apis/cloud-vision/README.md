@@ -19,7 +19,8 @@ Be sure you have followed the setup steps in the README file in the google-apis 
 * Switch to this directory (cloud-vision) in your console.
 * run `npm install` to install the Node dependencies for the server.
 * run `bower install` to install the Bower components for the front-end pages. 
-
+* run `node app.js` (be sure to have your service account JSON credential inside ../keys/MachineLearning-key.json)
+* go to http://localhost:3000/
 ### Enable the Vision API within your app
 
 * Go back to the API Manager through the menu at left.
@@ -41,3 +42,4 @@ Be sure you have followed the setup steps in the README file in the google-apis 
 * Click "Upload Files" and select the images you just downloaded.
 * When the upload is complete, select the corresponding checkbox in the "Share publicly" column.  This will check the box and write "Public link" in that column, signifying permission to use the image in your app.
 * Modify the dist/googly-eyes-helpers/googly-eyes-helpers.html file to replace "name-of-your-bucket" with your own bucket name, and "a-file-with-faces.jpg" with the name of one of your images.
+
