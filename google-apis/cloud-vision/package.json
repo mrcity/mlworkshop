@@ -4,8 +4,8 @@
   "description": "Demonstration of the Cloud Vision API.  Uses the facial detection feature to overlay googly eyes onto an image stored in a Google Cloud Storage bucket.",
   "main": "app.js",
   "dependencies": {
-    "express": "~4.14.0",
-    "googleapis": "~14.2.0"
+    "express": "~4.16.2",
+    "googleapis": "~23.0.1"
   },
   "devDependencies": {},
   "repository": {
