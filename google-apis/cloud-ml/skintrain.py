@@ -46,14 +46,15 @@ W2 = tf.Variable(tf.random_normal([n_hidden_1, n_classes], mean=1.0, stddev=1.0,
 b2 = tf.Variable(tf.random_normal([n_classes], mean=1.0, stddev=1.0, dtype=tf.float32), name="biases_2")
 y1 = tf.add(tf.matmul(x, W1), b1)
 y1 = tf.nn.relu(y1)
-y = tf.add(tf.matmul(y1, W2), b2)
+logits_y = tf.add(tf.matmul(y1, W2), b2)
+y = tf.nn.sigmoid(logits_y)
 
 # Define loss and optimizer
 y_ = tf.placeholder(tf.int32, [None, 2], name="labels")
 training_weights = tf.placeholder(tf.float32, [None, 1], name="training_weights")
 
 #cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=y_, logits=y, name="loss"))
-cross_entropy = tf.reduce_mean(tf.losses.sigmoid_cross_entropy(y_, y, weights=training_weights))
+cross_entropy = tf.reduce_mean(tf.losses.sigmoid_cross_entropy(labels=y_, logits=logits_y, weights=training_weights)) # TensorFlow is funny in that the cross-entropy function wants a "logit". Think of the logit as the value before passing through the non-linearity.
 #cross_entropy = tf.reduce_mean(tf.nn.weighted_cross_entropy_with_logits(y_, y, 20))
 #cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y, labels=y_))
 train_step = tf.train.GradientDescentOptimizer(0.005).minimize(cross_entropy)
