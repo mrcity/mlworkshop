@@ -46,13 +46,13 @@ W2 = tf.Variable(tf.random_normal([n_hidden_1, n_classes], mean=1.0, stddev=1.0,
 b2 = tf.Variable(tf.random_normal([n_classes], mean=1.0, stddev=1.0, dtype=tf.float32), name="biases_2")
 y1 = tf.add(tf.matmul(x, W1), b1)
 y1 = tf.nn.relu(y1)
-logit = tf.add(tf.matmul(y1, W2), b2)
-y = tf.sigmoid(logit)  # Run this after the cross-entropy in order to prevent numerical instability
+logits_y = tf.add(tf.matmul(y1, W2), b2)
+y = tf.nn.sigmoid(logits_y)  # Run this after the cross-entropy in order to prevent numerical instability
 
 # Define loss and optimizer
 y_ = tf.placeholder(tf.int32, [None, 2], name="labels")
 training_weights = tf.placeholder(tf.float32, [None, 1], name="training_weights")
-cross_entropy = tf.reduce_mean(tf.losses.sigmoid_cross_entropy(multi_class_labels=y_, logits=logit, weights=training_weights))
+cross_entropy = tf.reduce_mean(tf.losses.sigmoid_cross_entropy(multi_class_labels=y_, logits=logit, weights=training_weights)) # TensorFlow is funny in that the cross-entropy function wants a "logit". Think of the logit as the value before passing through the non-linearity.
 train_step = tf.train.GradientDescentOptimizer(0.005).minimize(cross_entropy)
 
 sess = tf.InteractiveSession()
