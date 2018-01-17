@@ -47,18 +47,13 @@ b2 = tf.Variable(tf.random_normal([n_classes], mean=1.0, stddev=1.0, dtype=tf.fl
 y1 = tf.add(tf.matmul(x, W1), b1)
 y1 = tf.nn.relu(y1)
 logits_y = tf.add(tf.matmul(y1, W2), b2)
-y = tf.nn.sigmoid(logits_y)
+y = tf.nn.sigmoid(logits_y)  # Run this after the cross-entropy in order to prevent numerical instability
 
 # Define loss and optimizer
 y_ = tf.placeholder(tf.int32, [None, 2], name="labels")
 training_weights = tf.placeholder(tf.float32, [None, 1], name="training_weights")
-
-#cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=y_, logits=y, name="loss"))
-cross_entropy = tf.reduce_mean(tf.losses.sigmoid_cross_entropy(labels=y_, logits=logits_y, weights=training_weights)) # TensorFlow is funny in that the cross-entropy function wants a "logit". Think of the logit as the value before passing through the non-linearity.
-#cross_entropy = tf.reduce_mean(tf.nn.weighted_cross_entropy_with_logits(y_, y, 20))
-#cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y, labels=y_))
+cross_entropy = tf.reduce_mean(tf.losses.sigmoid_cross_entropy(multi_class_labels=y_, logits=logit, weights=training_weights)) # TensorFlow is funny in that the cross-entropy function wants a "logit". Think of the logit as the value before passing through the non-linearity.
 train_step = tf.train.GradientDescentOptimizer(0.005).minimize(cross_entropy)
-#train_step = tf.train.AdamOptimizer(learning_rate=0.001).minimize(cross_entropy)
 
 sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
@@ -70,10 +65,10 @@ t = time.time()
 with tf.Session() as sess:
 	sess.run(tf.global_variables_initializer())
 	# Statistics
-	whoIsSkin = tf.placeholder(tf.float32, [None], name="labels_for_unique_count")
-	uwc = tf.unique_with_counts(whoIsSkin)
-	[values, _, counts] = sess.run(uwc, feed_dict={whoIsSkin: hsvIsSkinUnique})
-	print("Done displaying data statistics in %f seconds" % (time.time() - t))
+	#whoIsSkin = tf.placeholder(tf.float32, [None], name="labels_for_unique_count")
+	#uwc = tf.unique_with_counts(whoIsSkin)
+	#[values, _, counts] = sess.run(uwc, feed_dict={whoIsSkin: hsvIsSkinUnique})
+	#print("Done displaying data statistics in %f seconds" % (time.time() - t))
 	t = time.time()
 	# Train
 	#print(W1.eval())
@@ -95,7 +90,7 @@ with tf.Session() as sess:
 		tw = tw[None].transpose()
 		[_, cost] = sess.run([train_step, cross_entropy], feed_dict={x: batch_xs, y_: batch_ys, training_weights: tw})
 		if (i % 100 == 0):
-			print ("Epoch %d, cost = %f" % ((i / 100), cost))
+			print ("Epoch %d, cost = %f" % ((i / 100), cost), flush=True)
 	save_path = saver.save(sess, os.path.join(os.getcwd(), "skintone.ckpt"))
 	print("Done calculating the neural network in %f seconds" % (time.time() - t))
 	t = time.time()

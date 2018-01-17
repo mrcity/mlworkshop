@@ -1,7 +1,5 @@
 from apiclient.discovery import build
-from oauth2client.service_account import ServiceAccountCredentials
 import pprint
-import numpy as np
 
 ###############################################
 # This function was copied directly from Google
@@ -49,5 +47,5 @@ instances = [{"hsv_values": [5., 49., 79.]},
 			 {"hsv_values": [5., 35., 83.]},
 			 {"hsv_values": [5., 29., 71.]}]
 
-prediction = predict_json("machine-learning-149606", "skintone_detection", instances)
+prediction = predict_json("bucket-name", "model-name", instances)
 pprint.pprint(prediction)

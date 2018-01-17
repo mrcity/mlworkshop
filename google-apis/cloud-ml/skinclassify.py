@@ -44,13 +44,6 @@ with tf.Session() as sess:
 	print('Exporting trained model to', export_path)
 	builder = tf.saved_model.builder.SavedModelBuilder(export_path)
 
-	# Build the signature_def_map for classification.
-#	classification_inputs = tf.saved_model.utils.build_tensor_info(
-#		serialized_tf_example)
-#	classification_outputs_classes = tf.saved_model.utils.build_tensor_info(
-#		prediction_classes)
-#	classification_outputs_scores = tf.saved_model.utils.build_tensor_info(values)
-
 	# Build the signature_def_map for prediction.
 	# Note: Using predict_signature_def() rather than build_signature_def() really shortens things!
 	prediction_signature = (
